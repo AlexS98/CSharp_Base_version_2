@@ -40,26 +40,44 @@ namespace _3_Statements
             //    Console.WriteLine($"Value: {i}");
             //}
 
-            int[] array = new int[3];
-            array[0] = 1;
-            array[1] = 2;
-            array[2] = 3;
-            try
+            //int[] array = new int[3];
+            //array[0] = 1;
+            //array[1] = 2;
+            //array[2] = 3;
+            //try
+            //{
+            //    for (int i = 0; i < array.Length; i++)
+            //    {
+            //        int temp = i;
+            //        Console.WriteLine("First " + array[temp]);
+            //        array[i] = i++;
+            //        Console.WriteLine("Second " + array[temp]);
+            //        i--;
+            //    }
+            //}
+            //catch (Exception) { }
+
+
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    Console.WriteLine(array[i]);
+            //}
+
+            //foreach (int item in array)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            int number = 0;
+            do
             {
-                for (int i = 0; i < array.Length; i++)
-                {
-                    int temp = i;
-                    Console.WriteLine("First " + array[temp]);
-                    array[i] = i++;
-                    Console.WriteLine("Second " + array[temp]);
-                    i--;
-                }
+                Console.WriteLine("Enter number please");
             }
-            catch (Exception) { }
+            while (!int.TryParse(Console.ReadLine(), out number));
 
-
-
-
+            
+            
         }
 
 
