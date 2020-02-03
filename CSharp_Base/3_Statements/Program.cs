@@ -69,15 +69,67 @@ namespace _3_Statements
             //}
 
 
-            int number = 0;
+            int number1 = 0;
             do
             {
-                Console.WriteLine("Enter number please");
+                Console.WriteLine("Enter number 1 please");
             }
-            while (!int.TryParse(Console.ReadLine(), out number));
+            while (!int.TryParse(Console.ReadLine(), out number1));
 
-            
-            
+            int number2 = 0;
+            do
+            {
+                Console.WriteLine("Enter number 2 please");
+            }
+            while (!int.TryParse(Console.ReadLine(), out number2));
+
+
+            int[,] array2 = new int[2, 3];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    array2[i, k] = i * 30 + k * 10 + 10;
+                }
+            }
+
+            Console.WriteLine("---- Example #1 ----");
+
+            foreach (int item in array2)
+            {
+                if (item == 10) Console.WriteLine("First row");
+                else if (item == 40) Console.WriteLine("Second row");
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("---- Example #2 ----");
+
+            for (int i = 0; i < 2; i++)
+            {
+                Console.WriteLine(i == 0 ? "First row" : "Second row");
+
+                for (int k = 0; k < 3; k++)
+                {
+                    Console.WriteLine(array2[i, k]);
+                }
+            }
+
+            Console.WriteLine("---- Example #3 ----");
+
+            Console.WriteLine("First row");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(array2[0, i]);
+            }
+
+            Console.WriteLine("Second row");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(array2[1, i]);
+            }
+
+
+
         }
 
 
