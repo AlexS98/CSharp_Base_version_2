@@ -8,12 +8,17 @@ namespace _7_Classes
         {
             //Human u = new Human();
             //Console.WriteLine($"{u.FirstName} {u.LastName}");
+
+
             //Human a = new Human("male", "Alex", "Svyrydenko");
             //Console.WriteLine($"{a.FirstName} {a.LastName}");
 
-            int[] myArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            ShowArray(myArray);
-            ShowArray(SubArray(myArray, 5));
+            //int[] myArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            //ShowArray(myArray);
+            //ShowArray(SubArray(myArray, 5));
+
+            Laptop l1 = new Laptop("Windows");
+            Console.WriteLine(l1.OS);
         }
 
 
