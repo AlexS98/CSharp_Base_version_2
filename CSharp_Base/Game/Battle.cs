@@ -24,6 +24,7 @@ namespace Game
                 Character.ShowInfo();
                 Enemy.ShowInfo();
             }
+            Console.ReadLine();
         }
     }
 }

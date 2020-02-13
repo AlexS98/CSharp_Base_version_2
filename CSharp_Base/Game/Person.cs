@@ -23,6 +23,13 @@ namespace Game
                     hp = value;
             }
         }
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+        }
         public int Level { get; set; }
         public int Damage { get; set; }
         public string Name { get; set; }
@@ -53,12 +60,21 @@ namespace Game
             }
         }
 
-        public void ShowInfo()
+        public void Heal()
         {
-            Console.WriteLine($"Hi, I'm {Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
+            HealthPoints += 30;
+
         }
 
-        public void Move(int[,] map, string direction)
+        public void ShowInfo()
+        {
+            if (Alive)
+                Console.WriteLine($"Hi, I'm {Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
+            else
+                Console.WriteLine($"{Name} die");
+        }
+
+        public Position Move(int[,] map, string direction)
         {
             int currentPos1 = 0;
             int currentPos2 = 0;
@@ -79,7 +95,7 @@ namespace Game
             if (!find)
             {
                 Console.WriteLine("Can't find Person with id {0}", id);
-                return;
+                return new Position(currentPos1, currentPos2);
             }
             switch (direction)
             {
@@ -88,7 +104,7 @@ namespace Game
                         currentPos1--;
                     break;
                 case "s":
-                    if(currentPos1 <= map.GetLength(0) - 2)
+                    if (currentPos1 <= map.GetLength(0) - 2)
                         currentPos1++;
                     break;
                 case "d":
@@ -102,7 +118,7 @@ namespace Game
                 default:
                     break;
             }
-            map[currentPos1, currentPos2] = id;
+            return new Position(currentPos1, currentPos2);
         }
     }
 }
