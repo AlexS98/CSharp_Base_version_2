@@ -6,19 +6,23 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your name:");
-            string name = Console.ReadLine();
+            //Console.WriteLine("Enter your name:");
+            string name = "Warrior";
             Person pers = new Person(name, 1);
             Person enemy1 = new Person("Enemy 1", 2);
-            pers.ShowInfo();
-            enemy1.ShowInfo();
-            Battle b = new Battle(pers, enemy1);
-            b.Fight();
-            int[,] map = new int[6, 8];
+
+            int[,] map = new int[10, 14];
             map[1, 1] = 1;
             map[3, 3] = 2;
-            ShowMap(map);
 
+            while (pers.Alive)
+            {
+                pers.ShowInfo();
+                ShowMap(map);
+                pers.Move(map, Console.ReadKey().KeyChar.ToString());
+                Console.Clear();
+            }
+            Console.WriteLine("Game over");
         }
 
         static void ShowMap(int[,] map)

@@ -84,16 +84,20 @@ namespace Game
             switch (direction)
             {
                 case "w":
-                    currentPos1++;
+                    if (currentPos1 >= 1)
+                        currentPos1--;
                     break;
                 case "s":
-                    currentPos1--;
+                    if(currentPos1 <= map.GetLength(0) - 2)
+                        currentPos1++;
                     break;
                 case "d":
-                    currentPos2++;
+                    if (currentPos2 <= map.GetLength(1) - 2)
+                        currentPos2++;
                     break;
                 case "a":
-                    currentPos2--;
+                    if (currentPos2 >= 1)
+                        currentPos2--;
                     break;
                 default:
                     break;
