@@ -4,6 +4,7 @@ namespace Game
 {
     public class Person
     {
+        int id;
         int hp;
         public int HealthPoints
         {
@@ -27,12 +28,13 @@ namespace Game
         public string Name { get; set; }
         public bool Alive { get; set; } = true;
 
-        public Person(string name)
+        public Person(string name, int id)
         {
             Name = name;
             HealthPoints = 100;
             Level = 1;
             Damage = 50;
+            this.id = id;
         }
 
         public void LevelUp()
@@ -54,6 +56,49 @@ namespace Game
         public void ShowInfo()
         {
             Console.WriteLine($"Hi, I'm {Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
+        }
+
+        public void Move(int[,] map, string direction)
+        {
+            int currentPos1 = 0;
+            int currentPos2 = 0;
+            bool find = false;
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int k = 0; k < map.GetLength(1); k++)
+                {
+                    if (map[i, k] == id)
+                    {
+                        find = true;
+                        currentPos1 = i;
+                        currentPos2 = k;
+                        map[i, k] = 0;
+                    }
+                }
+            }
+            if (!find)
+            {
+                Console.WriteLine("Can't find Person with id {0}", id);
+                return;
+            }
+            switch (direction)
+            {
+                case "w":
+                    currentPos1++;
+                    break;
+                case "s":
+                    currentPos1--;
+                    break;
+                case "d":
+                    currentPos2++;
+                    break;
+                case "a":
+                    currentPos2--;
+                    break;
+                default:
+                    break;
+            }
+            map[currentPos1, currentPos2] = id;
         }
     }
 }
