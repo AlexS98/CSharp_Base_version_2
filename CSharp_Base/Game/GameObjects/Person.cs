@@ -34,6 +34,7 @@ namespace Game
         public int Damage { get; set; }
         public string Name { get; set; }
         public bool Alive { get; set; } = true;
+        public Map World { get; set; }
 
         public Person(string name, int id)
         {
@@ -63,7 +64,6 @@ namespace Game
         public void Heal()
         {
             HealthPoints += 30;
-
         }
 
         public void ShowInfo()
@@ -74,51 +74,46 @@ namespace Game
                 Console.WriteLine($"{Name} die");
         }
 
-        public Position Move(int[,] map, string direction)
+        public Position Move(string direction)
         {
-            int currentPos1 = 0;
-            int currentPos2 = 0;
-            bool find = false;
-            for (int i = 0; i < map.GetLength(0); i++)
+            Position currentPos = World.GetPersonPosition(this);
+            Cell currentCell = World.GetCell(currentPos);
+
+            if (currentPos == null)
             {
-                for (int k = 0; k < map.GetLength(1); k++)
-                {
-                    if (map[i, k] == id)
-                    {
-                        find = true;
-                        currentPos1 = i;
-                        currentPos2 = k;
-                        map[i, k] = 0;
-                    }
-                }
+                Console.WriteLine("Can't find {0}", Name);
+                return null;
             }
-            if (!find)
-            {
-                Console.WriteLine("Can't find Person with id {0}", id);
-                return new Position(currentPos1, currentPos2);
-            }
+
             switch (direction)
             {
                 case "w":
-                    if (currentPos1 >= 1)
-                        currentPos1--;
+                    if (currentPos.Pos1 >= 1)
+                        currentPos.Pos1--;
                     break;
                 case "s":
-                    if (currentPos1 <= map.GetLength(0) - 2)
-                        currentPos1++;
+                    if (currentPos.Pos1 <= World.WorldHeight - 2)
+                        currentPos.Pos1++;
                     break;
                 case "d":
-                    if (currentPos2 <= map.GetLength(1) - 2)
-                        currentPos2++;
+                    if (currentPos.Pos2 <= World.WorldWidth - 2)
+                        currentPos.Pos2++;
                     break;
                 case "a":
-                    if (currentPos2 >= 1)
-                        currentPos2--;
+                    if (currentPos.Pos2 >= 1)
+                        currentPos.Pos2--;
                     break;
                 default:
                     break;
             }
-            return new Position(currentPos1, currentPos2);
+            Cell wantedCell = World.GetCell(currentPos);
+
+            if (wantedCell.IsEmpty())
+            {
+                currentCell.PersonOnCell = null;
+                wantedCell.PersonOnCell = this;
+            }
+            return currentPos;
         }
     }
 }
