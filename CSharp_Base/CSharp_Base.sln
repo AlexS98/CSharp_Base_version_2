@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5_Methods", "5_Methods\5_Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7_Classes", "7_Classes\7_Classes.csproj", "{BAA54776-8553-4704-AEF0-8E52E6F9FECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{BFBCF5EE-546A-4681-8215-94E1314B66B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game", "Game\Game.csproj", "{BFBCF5EE-546A-4681-8215-94E1314B66B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "9_Inheritance", "9_Inheritance\9_Inheritance.csproj", "{54C315A4-CEC2-4F0F-A50B-8A63F0D146A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BFBCF5EE-546A-4681-8215-94E1314B66B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFBCF5EE-546A-4681-8215-94E1314B66B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFBCF5EE-546A-4681-8215-94E1314B66B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C315A4-CEC2-4F0F-A50B-8A63F0D146A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C315A4-CEC2-4F0F-A50B-8A63F0D146A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C315A4-CEC2-4F0F-A50B-8A63F0D146A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C315A4-CEC2-4F0F-A50B-8A63F0D146A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
