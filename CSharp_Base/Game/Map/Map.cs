@@ -92,15 +92,29 @@ namespace Game
                 {
                     Extensions.ToConsoleWrite("|", ConsoleColor.Green);
                     if (Cells[i, k].PersonOnCell != null && Cells[i, k].PersonOnCell.Id == 1)
-                        Extensions.ToConsoleWrite("P", ConsoleColor.Cyan);
+                        Extensions.ToConsoleWrite("☺", ConsoleColor.Cyan);
                     else if (Cells[i, k].PersonOnCell != null)
-                        Extensions.ToConsoleWrite("E", ConsoleColor.Red);
+                        Extensions.ToConsoleWrite("☻", ConsoleColor.Red);
                     else if (Cells[i, k].HeartOnCell != null)
                         Extensions.ToConsoleWrite("♥", ConsoleColor.Red);
                     else
                         Extensions.ToConsoleWrite(" ");
                 }
                 Extensions.ToConsole("|", ConsoleColor.Green);
+            }
+        }
+
+        public void Refresh()
+        {
+            for (int i = 0; i < WorldHeight; i++)
+            {
+                for (int k = 0; k < WorldWidth; k++)
+                {
+                    if (Cells[i, k].PersonOnCell != null && !Cells[i, k].PersonOnCell.Alive)
+                        Cells[i, k].PersonOnCell = null;
+                    if (Cells[i, k].HeartOnCell != null && Cells[i, k].HeartOnCell.Used)
+                        Cells[i, k].HeartOnCell = null;
+                }
             }
         }
     }

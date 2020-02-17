@@ -1,8 +1,10 @@
 ﻿using System;
 
+using Game.GameObjects;
+
 namespace Game
 {
-    public class Person
+    public class Person : GameObject
     {
         int id;
         int hp;
@@ -32,7 +34,6 @@ namespace Game
         }
         public int Level { get; set; }
         public int Damage { get; set; }
-        public string Name { get; set; }
         public bool Alive { get; set; } = true;
         public Map World { get; set; }
 
@@ -48,6 +49,7 @@ namespace Game
         public void LevelUp()
         {
             Level++;
+            HealthPoints += 50;
         }
 
         public void Hit(Person target)
@@ -61,17 +63,22 @@ namespace Game
             }
         }
 
-        public void Heal()
-        {
-            HealthPoints += 30;
-        }
-
         public void ShowInfo()
         {
             if (Alive)
                 Console.WriteLine($"Hi, I'm {Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
             else
                 Console.WriteLine($"{Name} die");
+        }
+
+        public override void Interaction(GameObject obj)
+        {
+            base.Interaction(obj);
+            if (obj is Person person)
+            {
+                Battle newBattle = new Battle(person, this);
+                Person winner = newBattle.Fight();
+            }
         }
 
         public Position Move(string direction)
@@ -112,6 +119,16 @@ namespace Game
             {
                 currentCell.PersonOnCell = null;
                 wantedCell.PersonOnCell = this;
+            }
+            else if (wantedCell.HeartOnCell != null)
+            {
+                wantedCell.HeartOnCell.Interaction(this);
+                World.Refresh();
+            }
+            else if (wantedCell.PersonOnCell != null)
+            {
+                wantedCell.PersonOnCell.Interaction(this);
+                World.Refresh();
             }
             return currentPos;
         }

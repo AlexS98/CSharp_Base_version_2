@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Game
 {
@@ -15,9 +13,9 @@ namespace Game
             Enemy = enemy;
         }
 
-        public void Fight()
+        public Person Fight()
         {
-            while(Character.Alive && Enemy.Alive)
+            while (Character.Alive && Enemy.Alive)
             {
                 Character.Hit(Enemy);
                 Enemy.Hit(Character);
@@ -25,6 +23,7 @@ namespace Game
                 Enemy.ShowInfo();
             }
             Console.ReadLine();
+            return Character.Alive ? Character : Enemy;
         }
     }
 }
