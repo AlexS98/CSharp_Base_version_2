@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.GameObjects;
 
 namespace Game
 {
@@ -8,12 +9,12 @@ namespace Game
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             string name = "Player";
-            Person pers = new Person(name, 1);
-            Person enemy1 = new Person("Enemy 1", 2);
-            Person enemy2 = new Person("Enemy 1", 2);
-            Person enemy3 = new Person("Enemy 1", 2);
-            Person enemy4 = new Person("Enemy 1", 2);
-            Person enemy5 = new Person("Enemy 1", 2);
+            Person pers = new Character(name, 1);
+            Person enemy1 = new Enemy("Enemy 1", 2);
+            Person enemy2 = new Enemy("Enemy 1", 2);
+            Person enemy3 = new Enemy("Enemy 1", 2);
+            Person enemy4 = new Enemy("Enemy 1", 2);
+            Person enemy5 = new Enemy("Enemy 1", 2);
 
             Map world = new Map(10, 14);
             world.GenerateMap();
