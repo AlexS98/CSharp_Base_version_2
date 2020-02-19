@@ -58,7 +58,7 @@ namespace Game
             if (Alive)
             {
                 Random random = new Random();
-                target.HealthPoints -= random.Next(Damage - 10, Damage + 11) + Weapon?.Damage ?? 0;
+                target.HealthPoints -= random.Next(Damage - 10, Damage + 11) + (Weapon?.Damage ?? 0);
                 if (target.HealthPoints == 0)
                     LevelUp();
             }
@@ -67,7 +67,7 @@ namespace Game
         public void ShowInfo()
         {
             if (Alive)
-                Console.WriteLine($"Hi, I'm {Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
+                Console.WriteLine($"{Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
             else
                 Console.WriteLine($"{Name} die");
         }
