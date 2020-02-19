@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Game.GameObjects
 {
@@ -8,6 +6,7 @@ namespace Game.GameObjects
     {
         public Character(string name, int id) : base(name, id)
         {
+            Damage = 35;
         }
 
         public override Position Move(string direction)
@@ -46,17 +45,12 @@ namespace Game.GameObjects
 
             if (wantedCell.IsEmpty())
             {
-                currentCell.PersonOnCell = null;
-                wantedCell.PersonOnCell = this;
+                currentCell.GameObject = null;
+                wantedCell.GameObject = this;
             }
-            else if (wantedCell.HeartOnCell != null)
+            else
             {
-                wantedCell.HeartOnCell.Interaction(this);
-                World.Refresh();
-            }
-            else if (wantedCell.PersonOnCell != null)
-            {
-                wantedCell.PersonOnCell.Interaction(this);
+                wantedCell.GameObject.Interaction(this);
                 World.Refresh();
             }
             return currentPos;

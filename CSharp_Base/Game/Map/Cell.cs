@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Game.GameObjects;
 
 namespace Game
 {
     public class Cell
     {
-        public Person PersonOnCell { get; set; }
-        public Heart HeartOnCell { get; set; }
+        public GameObject GameObject { get; set; }
 
         public Cell()
         {
         }
 
-        public Cell(Person personOnCell)
+        public Cell(GameObject gameObject)
         {
-            PersonOnCell = personOnCell;
-        }
-
-        public Cell(Heart heartOnCell)
-        {
-            HeartOnCell = heartOnCell;
+            GameObject = gameObject;
         }
 
         public bool IsEmpty()
         {
-            return PersonOnCell == null && HeartOnCell == null;
+            return GameObject == null;
         }
     }
 }

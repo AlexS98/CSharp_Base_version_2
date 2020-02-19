@@ -43,7 +43,7 @@ namespace Game
             Name = name;
             HealthPoints = 100;
             Level = 1;
-            Damage = 50;
+            Damage = 20;
             this.id = id;
         }
 
@@ -58,7 +58,9 @@ namespace Game
             if (Alive)
             {
                 Random random = new Random();
-                target.HealthPoints -= random.Next(Damage - 10, Damage + 11) + (Weapon?.Damage ?? 0);
+                target.HealthPoints -= random.Next(Damage - 5, Damage + 6) + (Weapon?.Damage ?? 0);
+                if (random.Next(0, 5) == 4)
+                    Weapon?.SpecialAttack(target);
                 if (target.HealthPoints == 0)
                     LevelUp();
             }
@@ -75,7 +77,7 @@ namespace Game
         public override void Interaction(GameObject obj)
         {
             base.Interaction(obj);
-            if (obj is Person person)
+            if (obj is Person person && person != this)
             {
                 Battle newBattle = new Battle(person, this);
                 Person winner = newBattle.Fight();

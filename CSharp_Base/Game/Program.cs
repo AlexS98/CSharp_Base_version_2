@@ -11,28 +11,56 @@ namespace Game
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             string name = "Player";
-            Person pers = new Character(name, 1);
+            Character pers = new Character(name, 1);
+
             Person[] enemies = Enumerable.Range(2, 5).Select(x => new Enemy($"Enemy {x}", x)).ToArray();
+            Heart[] hearts = Enumerable.Range(2, 5).Select(x => new Heart()).ToArray();
 
 
             Map world = new Map(10, 14);
             world.GenerateMap();
 
-            world.InitPerson(pers, 1, 1);
-            world.InitPerson(enemies[0], 3, 3);
-            world.InitPerson(enemies[1], 3, 5);
-            world.InitPerson(enemies[2], 5, 3);
-            world.InitPerson(enemies[3], 1, 3);
-            world.InitPerson(enemies[4], 1, 4);
+            world.InitGameObject(pers, 1, 1);
 
-            while (pers.Alive)
+            foreach (var item in enemies)
             {
-                Console.Clear();
+                int pos1, pos2;
+                do
+                {
+                    Random rand1 = new Random();
+                    Random rand2 = new Random();
+                    pos1 = rand1.Next(0, world.WorldHeight);
+                    pos2 = rand1.Next(0, world.WorldWidth);
+                } while (!world.InitGameObject(item, pos1, pos2));
+
+            }
+
+            foreach (var item in hearts)
+            {
+                int pos1, pos2;
+                do
+                {
+                    Random rand1 = new Random();
+                    Random rand2 = new Random();
+                    pos1 = rand1.Next(0, world.WorldHeight);
+                    pos2 = rand1.Next(0, world.WorldWidth);
+                } while (!world.InitGameObject(item, pos1, pos2));
+
+            }
+
+            while (pers.Alive && !world.Winner(pers))
+            {
                 pers.ShowInfo();
                 world.Show();
-                Position wantedPos = pers.Move(Console.ReadKey().KeyChar.ToString());
+                pers.Move(Console.ReadKey().KeyChar.ToString());
+                foreach (Enemy item in enemies)
+                {
+                    world.Refresh();
+                    item.Move("");
+                }
             }
-            Console.WriteLine("Game over");
+            world.Show();
+            Console.WriteLine(world.Winner(pers) ? "Congrats!" : "Game over");
         }
     }
 }
