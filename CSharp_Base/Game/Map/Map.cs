@@ -5,17 +5,28 @@ using Game.Weapons;
 
 namespace Game
 {
+    public enum Season
+    {
+        None,
+        Winter,
+        Spring,
+        Summer,
+        Autumn
+    }
+
     public class Map
     {
         public int WorldHeight { get; }
         public int WorldWidth { get; }
         public Cell[,] Cells { get; }
+        public Season Season { get; }
 
-        public Map(int height, int width)
+        public Map(int height, int width, Season season)
         {
             Cells = new Cell[height, width];
             WorldHeight = height;
             WorldWidth = width;
+            Season = season;
         }
 
         public void GenerateMap()
@@ -97,25 +108,25 @@ namespace Game
             {
                 for (int k = 0; k < WorldWidth; k++)
                 {
-                    Extensions.ToConsoleWrite("|", ConsoleColor.DarkGreen);
+                    Extensions.ToConsoleWrite("|", ConsoleColor.DarkGreen, Season);
                     if (Cells[i, k].GameObject != null)
                     {
                         if (Cells[i, k].GameObject is Character character)
-                            Extensions.ToConsoleWrite($"☺{(character.Weapon == null ? "_" : "\u2694")}", ConsoleColor.Yellow);
+                            Extensions.ToConsoleWrite($"☺{(character.Weapon == null ? "_" : "\u2694")}", ConsoleColor.Yellow, Season);
                         else if (Cells[i, k].GameObject is Bot enemy)
                             Extensions.ToConsoleWrite($"☻{(enemy.Weapon == null ? "_" : "\u2694")}",
-                                enemy.PlayerFriend ? ConsoleColor.Yellow : ConsoleColor.Red);
+                                enemy.PlayerFriend ? ConsoleColor.Yellow : ConsoleColor.Red, Season);
                         else if (Cells[i, k].GameObject is Heart)
-                            Extensions.ToConsoleWrite("♥", ConsoleColor.Green);
+                            Extensions.ToConsoleWrite("♥", ConsoleColor.Green, Season);
                         else if (Cells[i, k].GameObject is Sword)
-                            Extensions.ToConsoleWrite("_\u2694", ConsoleColor.Cyan);
+                            Extensions.ToConsoleWrite("_\u2694", ConsoleColor.Cyan, Season);
                         else if (Cells[i, k].GameObject is Knife)
-                            Extensions.ToConsoleWrite("_\u2694", ConsoleColor.Magenta);
+                            Extensions.ToConsoleWrite("_\u2694", ConsoleColor.Magenta, Season);
                     }
                     else
-                        Extensions.ToConsoleWrite("__", ConsoleColor.DarkGreen);
+                        Extensions.ToConsoleWrite("__", ConsoleColor.DarkGreen, Season);
                 }
-                Extensions.ToConsole("|", ConsoleColor.DarkGreen);
+                Extensions.ToConsole("|", ConsoleColor.DarkGreen, Season);
             }
             Console.WriteLine();
         }
