@@ -2,13 +2,17 @@
 
 namespace Game.Weapons
 {
-    public class Knife : IWeapon
+    public class Knife : CommonWeapon
     {
-        public int Damage { get; set; }
-
-        public void SpecialAttack(Person enemy)
+        public Knife()
         {
-            Console.WriteLine("Отравленное оружие!");
+            Damage = 15;
+            Name = nameof(Knife);
+        }
+
+        public override void SpecialAttack(GamePerson enemy)
+        {
+            Console.WriteLine("Venom!");
             enemy.HealthPoints -= 15;
         }
     }

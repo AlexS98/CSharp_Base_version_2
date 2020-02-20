@@ -2,14 +2,15 @@
 
 namespace Game.GameObjects
 {
-    public class Enemy : Person
+    public class Bot : GamePerson
     {
-        public Enemy(string name, int id) : base(name, id)
+        public Bot(string name, int id, bool plFriend) : base(name, id, plFriend)
         {
         }
 
         public override Position Move(string direction)
         {
+            World.Refresh();
             Position currentPos = World.GetPersonPosition(this);
 
             if (currentPos == null)

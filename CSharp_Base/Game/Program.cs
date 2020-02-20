@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Game.GameObjects;
+using Game.Weapons;
 
 namespace Game
 {
@@ -9,58 +10,49 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             string name = "Player";
             Character pers = new Character(name, 1);
 
-            Person[] enemies = Enumerable.Range(2, 5).Select(x => new Enemy($"Enemy {x}", x)).ToArray();
-            Heart[] hearts = Enumerable.Range(2, 5).Select(x => new Heart()).ToArray();
+            Random randWeapon = new Random();
+            GameObject[] friends = Enumerable.Range(10, 7).Select(x => new Bot($"Friend {x}", x, true)).ToArray();
+            GameObject[] enemies = Enumerable.Range(2, 8).Select(x => new Bot($"Enemy {x}", x, false)).ToArray();
+            GameObject[] hearts = Enumerable.Range(0, 15).Select(x => new Heart()).ToArray();
+            GameObject[] weapons = Enumerable.Range(0, 9)
+                .Select(x => randWeapon.Next(0, 2) == 0
+                        ? new Knife() as GameObject
+                        : new Sword() as GameObject)
+                .ToArray();
 
-
-            Map world = new Map(10, 14);
+            Map world = new Map(16, 14);
             world.GenerateMap();
 
             world.InitGameObject(pers, 1, 1);
 
-            foreach (var item in enemies)
+            world.SetGameObjects(enemies);
+            world.SetGameObjects(friends);
+            world.SetGameObjects(hearts);
+            world.SetGameObjects(weapons);
+
+            while (pers.Alive && !world.Winner())
             {
-                int pos1, pos2;
-                do
+                world.Show(pers);
+                Console.Write("Direction: ");
+                string direct = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine();
+                pers.Move(direct);
+                foreach (Bot item in enemies.Where(x => (x as Bot).Alive))
                 {
-                    Random rand1 = new Random();
-                    Random rand2 = new Random();
-                    pos1 = rand1.Next(0, world.WorldHeight);
-                    pos2 = rand1.Next(0, world.WorldWidth);
-                } while (!world.InitGameObject(item, pos1, pos2));
-
-            }
-
-            foreach (var item in hearts)
-            {
-                int pos1, pos2;
-                do
-                {
-                    Random rand1 = new Random();
-                    Random rand2 = new Random();
-                    pos1 = rand1.Next(0, world.WorldHeight);
-                    pos2 = rand1.Next(0, world.WorldWidth);
-                } while (!world.InitGameObject(item, pos1, pos2));
-
-            }
-
-            while (pers.Alive && !world.Winner(pers))
-            {
-                pers.ShowInfo();
-                world.Show();
-                pers.Move(Console.ReadKey().KeyChar.ToString());
-                foreach (Enemy item in enemies)
-                {
-                    world.Refresh();
                     item.Move("");
                 }
+                foreach (Bot item in friends.Where(x => (x as Bot).Alive))
+                {
+                    item.Move("");
+                }
+                Console.ReadKey();
             }
-            world.Show();
-            Console.WriteLine(world.Winner(pers) ? "Congrats!" : "Game over");
+            world.Show(pers);
+            Console.WriteLine(world.Winner() ? "Congrats!" : "Game over");
         }
     }
 }

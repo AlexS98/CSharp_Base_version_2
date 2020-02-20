@@ -2,15 +2,16 @@
 
 namespace Game.GameObjects
 {
-    public class Character : Person
+    public class Character : GamePerson
     {
-        public Character(string name, int id) : base(name, id)
+        public Character(string name, int id) : base(name, id, true)
         {
-            Damage = 35;
+            // Damage = 35;
         }
 
         public override Position Move(string direction)
         {
+            World.Refresh();
             Position currentPos = World.GetPersonPosition(this);
             Cell currentCell = World.GetCell(currentPos);
 

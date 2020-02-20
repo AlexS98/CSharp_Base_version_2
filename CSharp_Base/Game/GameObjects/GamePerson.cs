@@ -4,10 +4,11 @@ using Game.GameObjects;
 
 namespace Game
 {
-    public abstract class Person : GameObject
+    public abstract class GamePerson : GameObject
     {
         int id;
         int hp;
+        public bool PlayerFriend { get; set; }
         public int HealthPoints
         {
             get
@@ -38,13 +39,14 @@ namespace Game
         public Map World { get; set; }
         public IWeapon Weapon { get; set; }
 
-        public Person(string name, int id)
+        public GamePerson(string name, int id, bool plFriend)
         {
             Name = name;
             HealthPoints = 100;
             Level = 1;
             Damage = 20;
             this.id = id;
+            PlayerFriend = plFriend;
         }
 
         public void LevelUp()
@@ -53,7 +55,7 @@ namespace Game
             HealthPoints += 50;
         }
 
-        public void Hit(Person target)
+        public void Hit(GamePerson target)
         {
             if (Alive)
             {
@@ -69,18 +71,18 @@ namespace Game
         public void ShowInfo()
         {
             if (Alive)
-                Console.WriteLine($"{Name}, my hp: {HealthPoints}, dmg: {Damage}, lvl: {Level}");
+                Console.WriteLine($"{Name}, hp: {HealthPoints}, dmg/lvl: {Damage}/{Level}, w: {(Weapon == null ? "-" : Weapon.GetType().Name)}");
             else
-                Console.WriteLine($"{Name} die");
+                Extensions.ToConsole($"{Name} die", ConsoleColor.Red);
         }
 
         public override void Interaction(GameObject obj)
         {
             base.Interaction(obj);
-            if (obj is Person person && person != this)
+            if (obj is GamePerson person && person != this && person.PlayerFriend != PlayerFriend)
             {
                 Battle newBattle = new Battle(person, this);
-                Person winner = newBattle.Fight();
+                GamePerson winner = newBattle.Fight();
             }
         }
 

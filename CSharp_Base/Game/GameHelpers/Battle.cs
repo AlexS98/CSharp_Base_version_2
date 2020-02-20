@@ -4,16 +4,16 @@ namespace Game
 {
     public class Battle
     {
-        public Person Character { get; set; }
-        public Person Enemy { get; set; }
+        public GamePerson Character { get; set; }
+        public GamePerson Enemy { get; set; }
 
-        public Battle(Person character, Person enemy)
+        public Battle(GamePerson character, GamePerson enemy)
         {
             Character = character;
             Enemy = enemy;
         }
 
-        public Person Fight()
+        public GamePerson Fight()
         {
             while (Character.Alive && Enemy.Alive)
             {
@@ -22,7 +22,6 @@ namespace Game
                 Character.ShowInfo();
                 Enemy.ShowInfo();
             }
-            Console.ReadLine();
             return Character.Alive ? Character : Enemy;
         }
     }

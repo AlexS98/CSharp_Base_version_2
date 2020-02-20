@@ -13,6 +13,13 @@ namespace Game
             Console.ResetColor();
         }
 
+        public static void ToConsoleWrite(char str, ConsoleColor color = ConsoleColor.White)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(str);
+            Console.ResetColor();
+        }
+
         public static void ToConsole(string str, ConsoleColor color = ConsoleColor.White)
         {
             Console.ForegroundColor = color;

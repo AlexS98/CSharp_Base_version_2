@@ -1,15 +1,18 @@
 ﻿using System;
-using Game.GameObjects;
 
 namespace Game.Weapons
 {
-    public class Sword : GameObject, IWeapon
+    public class Sword : CommonWeapon
     {
-        public int Damage { get; set; }
-
-        public void SpecialAttack(Person enemy)
+        public Sword()
         {
-            Console.WriteLine("Разоружить противника!");
+            Damage = 30;
+            Name = nameof(Sword);
+        }
+
+        public override void SpecialAttack(GamePerson enemy)
+        {
+            Console.WriteLine("No weapon!");
             enemy.Weapon = null;
         }
     }
